@@ -1,5 +1,9 @@
 # FileHashGuard
-Bash scripts that will generate and verify sha512 files for data integrity monitoring. Custom scripts for Radarr &amp; Sonarr available.
+Bash scripts that will generate and verify .sha512 files for data integrity monitoring. 
+
+When you need to know when files have been corrupted but don't want or can't use ZFS or RAID.
+
+Custom scripts for Radarr &amp; Sonarr available.
 
 # Example
 Before using the script you have a file like this :
