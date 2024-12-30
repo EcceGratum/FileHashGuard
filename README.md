@@ -16,7 +16,7 @@ Inside of it is the sha512 hash. You can also use the script to verify the origi
 
 # How to use the general script
 In a console :
-`$ ./video_checksum_generate_verify.sh /path_to_a_folder/`
+`$ ./checksum_generate_verify.sh /path_to_a_folder/`
 
 You will have to choose between "v" or "g" :
 `(v)erify or (g)enerate ?`

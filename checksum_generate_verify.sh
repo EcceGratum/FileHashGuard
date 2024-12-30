@@ -9,7 +9,7 @@ if [ ! -d "$SEARCH_DIR" ]; then
 fi
 
 # Specify the file extensions you want to search for
-FILE_EXTENSIONS=("avi" "mp4" "m4v" "mkv" "webm" "flv" "ogg")
+FILE_EXTENSIONS=("avi" "mp4" "m4v" "mkv" "webm" "flv" "ogg" "mp3" "flac" "m4b" "zip" "7z")
 
 # verify of generate ?
 while true; do
@@ -22,25 +22,25 @@ while true; do
 done
 
 generate_sha512() {
-    local filepath="$1"
+  local filepath="$1"
 
-    # check presence of sha512 file
-    sha_dir=$(dirname "$filepath")
-    sha_file=$(basename "$filepath")
-    if [ -f "$sha_dir/$sha_file.sha512" ]; then
-        echo "Already exists $sha_file.sha512"
-    else
-        echo "Hashing $filepath ..."
-        checksum=$(sha512sum "$filepath")
-        sha_num_char=${#checksum}
+          # check presence of sha512 file
+        sha_dir=$(dirname "$filepath")
+        sha_file=$(basename "$filepath")
+        if [ -f "$sha_dir/$sha_file.sha512" ]; then
+            echo "Already exists $sha_file.sha512"
+        else
+            echo "Hashing $filepath ..."
+            checksum=$(sha512sum "$filepath")
+            sha_num_char=${#checksum}
 
-        if [ $sha_num_char -gt 128 ]; then
-            checksum=${checksum:0:128}
-            echo "SHA512 $checksum"
-            echo "Creating $sha_dir/$sha_file.sha512 ..."
-            echo $checksum > "$sha_dir/$sha_file.sha512"
+            if [ $sha_num_char -gt 128 ]; then
+                checksum=${checksum:0:128}
+                echo "SHA512 $checksum"
+                echo "Saving $sha_dir/$sha_file.sha512 ..."
+                echo $checksum > "$sha_dir/$sha_file.sha512"
+            fi
         fi
-    fi
 }
 
 verify_sha512() {
@@ -55,9 +55,9 @@ verify_sha512() {
         sha_num_char=${#checksum}
         if [ $sha_num_char -gt 128 ]; then
             checksum=${checksum:0:128}
-            if [[ $sha512 == $checksum ]]; then
-                echo "OK $ori_file"
-            else
+            if [[ $sha512 != $checksum ]]; then
+                #echo "OK $ori_file" #$sha512"
+            #else
                 echo "FAIL $ori_file $sha512 vs $checksum"
             fi
         else
